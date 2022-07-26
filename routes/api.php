@@ -32,12 +32,8 @@ Route::group([
     
 });
 
-
-Route::group([
-    'middleware' => 'auth:api',
-], function ($router) {
-    Route::get('/user_apis' ,           [UserApiController::class, 'index']);
-    Route::post('/user_apis/store' ,    [UserApiController::class, 'store']);
-    Route::delete('/user_apis/delete/{userApi}' ,   [UserApiController::class, 'destroy']);
-    Route::put('/user_apis/update/{userApi}' ,      [UserApiController::class, 'update']);
-});
+Route::get('/user_apis' ,           [UserApiController::class, 'index']);
+Route::post('/user_apis/store' ,    [UserApiController::class, 'store']);
+Route::get('user_apis/{userApi}', [UserApiController::class, 'show']);
+Route::delete('/user_apis/delete/{userApi}' ,   [UserApiController::class, 'destroy']);
+Route::put('/user_apis/update/{userApi}' ,      [UserApiController::class, 'update']);

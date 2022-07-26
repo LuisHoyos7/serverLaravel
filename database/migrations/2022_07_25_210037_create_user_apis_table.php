@@ -18,7 +18,10 @@ class CreateUserApisTable extends Migration
             $table->id();
             $table->string('name',50);
             $table->string('last_name',50);
-            $table->integer('identification_type');
+            $table->unsignedBigInteger('identification_type');
+            $table->foreign("identification_type")
+                    ->references("id")
+                    ->on("identification_types");
             $table->integer('identification_number');
             $table->date('birth_date');
             $table->string('password');

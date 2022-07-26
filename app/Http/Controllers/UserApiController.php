@@ -17,7 +17,7 @@ class UserApiController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['index','show']);
     }
 
     public function index()
@@ -49,6 +49,7 @@ class UserApiController extends Controller
      */
     public function store(Request $request)
     {
+      
         //realizar la clase UserApiRequest para realizar la validacion en otra clase y el 
         //controlador quede mas legible
         $request->validate([
@@ -61,7 +62,11 @@ class UserApiController extends Controller
 
         //se crea el registro con la clase create de laravel, la inserción
         //masiva es permitida por la clase $fillable del modelo USerApi
-        $userApi = UserApi::create($request->all());
+        $input = $request->all();
+
+        $input['password'] = bcrypt($input['password']);
+
+        $userApi = UserApi::create($input);
 
         //se retorna una instancia del recurso UserApi 
         return (new UserResource($userApi))
@@ -77,7 +82,7 @@ class UserApiController extends Controller
      */
     public function show(UserApi $userApi)
     {
-        //
+        return response()->json($userApi);
     }
 
     /**

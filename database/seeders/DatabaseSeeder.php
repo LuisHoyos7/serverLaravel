@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\IdentificationType::create([
+                'name' => 'cedula ciudadania'
+            ]);
         \App\Models\UserApi::factory(1)->create();
+        
     }
 }
